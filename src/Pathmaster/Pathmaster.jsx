@@ -136,6 +136,9 @@ export default class PathfindingVisualizer extends Component {
         <button onClick={() => this.visualize("BFS")}>
           Visualize BFS Algorithm
               </button>
+        <button onClick={() => this.visualize("Astar")}>
+          Visualize A* Algorithm
+              </button>
         <p>
           Current selected piece: {pieceType}
         </p>
@@ -168,7 +171,7 @@ const createNode = (col, row) => {
     col,
     row,
     distance: Infinity,
-    heuristic: Infinity,
+    heuristic: Math.sqrt(Math.pow(col-FINISH_NODE_COL,2) + Math.pow(row-FINISH_NODE_ROW,2)),
     isVisited: false,
     isChanged: false,
     previousNode: null,

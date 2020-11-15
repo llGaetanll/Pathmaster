@@ -4,6 +4,7 @@
 
 import {dijkstra} from './Dijkstra.js';
 import {bfs} from './bfs.js';
+import {astar} from './Astar.js';
 
 
 //runs a given algorith, just a wrapper for all the pathfinding algs
@@ -13,6 +14,9 @@ export function runAlgorithm(alg, grid, start, end, pieceType) {
 	}
 	if (alg === "BFS") {
 		return bfs(grid, start, end, pieceType);
+	}
+	if (alg === "Astar") {
+		return astar(grid, start, end, pieceType);
 	}
 }
 
