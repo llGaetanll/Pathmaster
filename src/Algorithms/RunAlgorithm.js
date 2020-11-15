@@ -2,9 +2,9 @@
 // it is called in Pathmaster.jsx and runs different algs
 // from src/Algorithms
 
-import {dijkstra} from './Dijkstra.js';
-import {bfs} from './BFS.js';
-import {astar} from './Astar.js';
+import {dijkstra} from 'Dijkstra.js';
+import {bfs} from 'BFS.js';
+import {astar} from 'Astar.js';
 
 
 //runs a given algorith, just a wrapper for all the pathfinding algs
