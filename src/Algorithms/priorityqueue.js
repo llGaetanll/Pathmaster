@@ -1,3 +1,8 @@
+// Priority Queue class for Dijkstra's and other algorithms.
+// Constructor can be given any comparison function to sort 
+// the elements, so for Dijkstra we can use distance while
+// for A* we can use distance + heuristic
+
 export class PriorityQueue {
 	constructor(comp = (a,b)=>a>b) {
 		this.data = [];

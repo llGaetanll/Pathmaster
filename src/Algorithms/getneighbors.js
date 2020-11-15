@@ -1,3 +1,8 @@
+// Returns neighboring nodes according to how the corresponding
+// chess piece moves. Call with a node, the grid, and the pieceType.
+// pieceType is a string, one of the following:
+// Knight, Rook, King, Bishop, Queen
+
 export function getNeighbors(node, grid, pieceType) {
 	console.log(grid);
 	let neighbors = [];
