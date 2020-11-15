@@ -4,7 +4,6 @@
 // Knight, Rook, King, Bishop, Queen
 
 export function getNeighbors(node, grid, pieceType) {
-	console.log(grid);
 	let neighbors = [];
 	let r = node.row;
 	let c = node.col;

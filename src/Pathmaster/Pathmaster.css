@@ -1,3 +1,10 @@
 .grid {
   margin: 100px 0 0;
 }
+
+.App {
+  text-align: center;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  user-select: none;
+}
