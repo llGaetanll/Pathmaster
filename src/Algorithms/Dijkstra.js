@@ -43,7 +43,7 @@ function updateNeighbors(node, grid, pieceType) {
 	let unvisitedNeighbors = getValidNeighbors(node, grid, pieceType);
 	for (let neighbor of unvisitedNeighbors) {
 		let newDistance = node.distance + dist(neighbor, node);
-		if (newDistance < node.distance) {
+		if (newDistance < neighbor.distance) {
 			neighbor.distance = newDistance;
 			neighbor.previousNode = node;
 		}
