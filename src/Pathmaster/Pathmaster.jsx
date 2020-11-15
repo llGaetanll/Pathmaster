@@ -5,29 +5,24 @@ import {bfs} from '../Algorithms/bfs';
 
 import './Pathmaster.css'
 
-<<<<<<< Updated upstream
-const NUM_ROWS = 20;
-const NUM_COLS = 50;
-const START_NODE_ROW = 10;
-const START_NODE_COL = 15;
-const FINISH_NODE_ROW = 10;
-const FINISH_NODE_COL = 35;
-let pieceType = "Knight";
-
-=======
->>>>>>> Stashed changes
 export default class PathfindingVisualizer extends Component {
     constructor() {
       super();
       this.state = {
         grid: [],
         mouseIsPressed: false,
+        pieceType: "Knight"
       };
     }
 
     componentDidMount() {
         const grid = getInitialGrid();
         this.setState({grid});
+    }
+
+    setPieceType(piece) {
+        console.log(piece)
+        this.setState({pieceType: piece})
     }
 
     handleMouseDown(row, col) {
@@ -67,7 +62,7 @@ export default class PathfindingVisualizer extends Component {
         }
       }
     
-      animateShortestPath(nodesInShortestPathOrder) {
+    animateShortestPath(nodesInShortestPathOrder) {
         for (let i = 0; i < nodesInShortestPathOrder.length; i++) {
           setTimeout(() => {
             const node = nodesInShortestPathOrder[i];
@@ -92,19 +87,10 @@ export default class PathfindingVisualizer extends Component {
           }, 10 * i);
         }
       }
-    
-      animateShortestPath(nodesInShortestPathOrder) {
-        for (let i = 0; i < nodesInShortestPathOrder.length; i++) {
-          setTimeout(() => {
-            const node = nodesInShortestPathOrder[i];
-            document.getElementById(`node-${node.row}-${node.col}`).className =
-              'node node-shortest-path';
-          }, 50 * i);
-        }
-    }
 
     visualizeBfs() {
-        const {grid} = this.state;
+        const {grid, pieceType} = this.state;
+        console.log(pieceType)
         const startNode = grid[START_NODE_ROW][START_NODE_COL];
         const finishNode = grid[FINISH_NODE_ROW][FINISH_NODE_COL];
         const visitedNodesInOrder = bfs(grid, startNode, finishNode, pieceType);
@@ -113,7 +99,7 @@ export default class PathfindingVisualizer extends Component {
     }
     
     visualizeDijkstra() {
-        const {grid} = this.state;
+        const {grid, pieceType} = this.state;
         const startNode = grid[START_NODE_ROW][START_NODE_COL];
         const finishNode = grid[FINISH_NODE_ROW][FINISH_NODE_COL];
         const visitedNodesInOrder = dijkstra(grid, startNode, finishNode, pieceType);
@@ -122,41 +108,37 @@ export default class PathfindingVisualizer extends Component {
     }
 
     render() {
-        const {grid} = this.state;
+        var {grid, pieceType} = this.state;
 
         return (
             <>
-              <button onClick={() => pieceType = "Bishop"}>
+              <button onClick={(e) => this.setPieceType(e.target.innerHTML)}>
                 Bishop
               </button>
-              <button onClick={() => pieceType = "Rook"}>
+              <button onClick={(e) => this.setPieceType(e.target.innerHTML)}>
                 Rook
               </button>
-              <button onClick={() => pieceType = "Knight"}>
+              <button onClick={(e) => this.setPieceType(e.target.innerHTML)}>
                 Knight
               </button>
-              <button onClick={() => pieceType = "King"}>
+              <button onClick={(e) => this.setPieceType(e.target.innerHTML)}>
                 King
               </button>
-              <button onClick={() => pieceType = "Queen"}>
+              <button onClick={(e) => this.setPieceType(e.target.innerHTML)}>
                 Queen
               </button>
               <button onClick={() => this.visualizeDijkstra()}>
                 Visualize Dijkstra's Algorithm
               </button>
-<<<<<<< Updated upstream
               <button onClick={() => this.visualizeBfs()}>
                 Visualize BFS Algorithm
               </button>
               <p>
                 Current selected piece: {pieceType}
-              </p>
-              <div className="grid">
-=======
+              </p>         
               <div className="grid"
                 onMouseUp={() => this.handleMouseUp()}
                 onMouseDown={() => this.handleMouseDown()}>
->>>>>>> Stashed changes
                 {grid.map((row, rowIdx) => {
                   return (
                     <div key={rowIdx}>
