@@ -6,7 +6,7 @@
 import {PriorityQueue} from './priorityqueue.js';
 import {getNeighbors} from './getneighbors.js';
 
-export function dijkstra(grid, start, end) {
+export function dijkstra(grid, start, end, pieceType) {
   //assume all distance of nodes are already Infinity
   let visitedNodes = [];
   start.distance = 0;
@@ -23,8 +23,8 @@ export function dijkstra(grid, start, end) {
     visitedNodes.push(curr);
     if (curr === end)
       return visitedNodes;
-    updateNeighbors(curr, grid);
-    let neighbors = getValidNeighbors(curr, grid);
+    updateNeighbors(curr, grid, pieceType);
+    let neighbors = getValidNeighbors(curr, grid, pieceType);
     for (let n of neighbors) {
       pq.push(n);
     }
@@ -40,8 +40,8 @@ export function dijkstra(grid, start, end) {
     return Math.sqrt(Math.pow(x,2) + Math.pow(y,2));
   }
   
-  function updateNeighbors(node, grid) {
-    let unvisitedNeighbors = getValidNeighbors(node, grid);
+  function updateNeighbors(node, grid, pieceType) {
+    let unvisitedNeighbors = getValidNeighbors(node, grid, pieceType);
     for (let neighbor of unvisitedNeighbors) {
       let newDistance = node.distance + dist(neighbor, node);
       if (newDistance < neighbor.distance) {
@@ -51,10 +51,10 @@ export function dijkstra(grid, start, end) {
     }
   }
   
-  function getValidNeighbors(node, grid) {
+  function getValidNeighbors(node, grid, pieceType) {
     //update neighbors according to piece movement
     //third parameter is pieceType: capitalized word
-    let neighbors = getNeighbors(node, grid, "Bishop");
+    let neighbors = getNeighbors(node, grid, pieceType);
     return neighbors.filter(n => !n.isVisited && !n.isWall);
   }
   

@@ -4,7 +4,7 @@
 
 import {getNeighbors} from './getneighbors.js';
 
-export function bfs(grid, start, end) {
+export function bfs(grid, start, end, pieceType) {
 	//assuming all distances have been updated
 	let q = [];
 	let visitedNodes = [];
@@ -20,8 +20,8 @@ export function bfs(grid, start, end) {
 		if (curr === end) {
 			return visitedNodes;
 		}
-		updateNeighbors(curr, grid);
-		let neighbors = getValidNeighbors(curr, grid);
+		updateNeighbors(curr, grid, pieceType);
+		let neighbors = getValidNeighbors(curr, grid, pieceType);
 		for (let n of neighbors) {
 			q.push(n);
 		}
@@ -29,8 +29,8 @@ export function bfs(grid, start, end) {
 	return visitedNodes;
 }
 
-function updateNeighbors(node, grid) {
-	let neighbors = getValidNeighbors(node, grid);
+function updateNeighbors(node, grid, pieceType) {
+	let neighbors = getValidNeighbors(node, grid, pieceType);
 	for (let neighbor of neighbors) {
 		if (node.distance + 1 < neighbor.distance) {
 			neighbor.distance = node.distance + 1;
@@ -39,10 +39,10 @@ function updateNeighbors(node, grid) {
 	}
 }
 
-function getValidNeighbors(node, grid) {
+function getValidNeighbors(node, grid, pieceType) {
 	//update neighbors according to piece movement
 	//third parameter is pieceType: capitalized word
-	let neighbors = getNeighbors(node, grid, "Bishop");
+	let neighbors = getNeighbors(node, grid, pieceType);
 	return neighbors.filter(n => !n.isVisited && !n.isWall);
 }
 
