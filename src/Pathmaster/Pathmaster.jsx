@@ -80,7 +80,7 @@ export default class PathfindingVisualizer extends Component {
     const finishNode = grid[FINISH_NODE_ROW][FINISH_NODE_COL];
     const visitedNodesInOrder = runAlgorithm(algo, grid, startNode, finishNode, pieceType);
     const nodesInShortestPathOrder = getNodesInOrder(finishNode);
-    this.animateBfs(visitedNodesInOrder, nodesInShortestPathOrder);
+    this.animate(visitedNodesInOrder, nodesInShortestPathOrder);
   }
 
   render() {
@@ -89,7 +89,6 @@ export default class PathfindingVisualizer extends Component {
     return (
       <>
         <Header />
-
         <div className="grid"
           onMouseUp={() => this.handleMouseUp()}
           onMouseDown={() => this.handleMouseDown()}>
@@ -145,12 +144,14 @@ export default class PathfindingVisualizer extends Component {
     );
   }
 }
+
 const NUM_ROWS = 30;
 const NUM_COLS = 70;
 const START_NODE_ROW = Math.floor(NUM_ROWS / 2);
 const START_NODE_COL = Math.floor(NUM_COLS / 4);
 const FINISH_NODE_ROW = Math.floor(NUM_ROWS / 2);
 const FINISH_NODE_COL = Math.floor(NUM_COLS * 3 / 4);
+
 const getInitialGrid = () => {
   const grid = [];
   for (let row = 0; row < NUM_ROWS; row++) {
