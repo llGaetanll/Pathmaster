@@ -2,6 +2,10 @@
   "name": "pathmaster",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "npm": "6.12.0",
+    "node": "12.13.0"
+  },
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.6",
     "@testing-library/react": "^11.1.2",
