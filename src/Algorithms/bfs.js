@@ -45,13 +45,3 @@ function getValidNeighbors(node, grid, pieceType) {
 	let neighbors = getNeighbors(node, grid, pieceType);
 	return neighbors.filter(n => !n.isVisited && !n.isWall);
 }
-
-export function getNodesInOrder(end) {
-	let curr = end;
-	let inOrder = [];
-	while (curr !== null) {
-		inOrder.unshift(curr);
-		curr = curr.previousNode;
-	}
-	return inOrder;
-}

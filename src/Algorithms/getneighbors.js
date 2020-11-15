@@ -3,6 +3,15 @@
 // pieceType is a string, one of the following:
 // Knight, Rook, King, Bishop, Queen
 
+
+//simple helper to return distance between two nodes
+//used in dijkstra/A* algorithms
+export function dist (a, b) {
+	let x = a.row - b.row;
+	let y = a.col - b.col;
+	return Math.sqrt(Math.pow(x,2) + Math.pow(y,2));
+}
+
 export function getNeighbors(node, grid, pieceType) {
 	let neighbors = [];
 	let r = node.row;
