@@ -1,102 +1,101 @@
-@import url('https://fonts.googleapis.com/css2?family=Fira+Sans+Extra+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Montserrat+Subrayada:wght@400;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Fira+Sans+Extra+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Montserrat+Subrayada:wght@400;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,500;1,500&display=swap');@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,500&display=swap');
 
-*{
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    text-decoration: none;
+* {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-decoration: none;
 }
 
 .header {
-    width: 100%;
-    height: 120px;
-    display: block;
+  width: 100%;
+  height: 120px;
+  display: block;
 }
 
 .top_header {
-    width: 100%;
-    height: 70%;
-    display: table;
-    vertical-align: top;
-    position: relative;
-    background-color: rgb(245, 195, 66);
+  width: 100%;
+  height: 70%;
+  display: table;
+  vertical-align: top;
+  position: relative;
+  background-color: rgb(245, 195, 66);
 }
 
 .bottom_header {
-    width: 100%;
-    height: 50%;
-    display: table;
-    background-color: rgb(249, 215, 120);
-    box-shadow: 0px 3px 2px grey;
-    position: relative;
-    z-index: 1;
+  width: 100%;
+  height: 50%;
+  display: table;
+  background-color: rgb(249, 215, 120);
+  box-shadow: 0px 3px 2px grey;
+  position: relative;
+  z-index: 1;
 }
-  
+
 .logo_holder {
-    width: 250px;
-    height: 100%;
-    display: table;
-    float: left;
-    
+  width: 250px;
+  height: 100%;
+  display: table;
+  float: left;
 }
 
 .logo_holder h1 {
-    height: 100%;
-    display: table-cell;
-    vertical-align: middle;
-    font-size: 35px;
-    font-weight: 400;
-    font-family: 'Montserrat Subrayada', sans-serif;
+  height: 100%;
+  display: table-cell;
+  vertical-align: middle;
+  font-size: 35px;
+  font-weight: 400;
+  font-family: "Montserrat", sans-serif;
 }
 
-.logo_holder h1 span{
-    font-weight: 700;
+.logo_holder h1 span {
+  font-weight: 700;
 }
 
 .logo_holder img {
-    display: table-cell;
-    vertical-align: middle;
-    padding-top: 20px;
-    padding-left: 20px;
+  display: table-cell;
+  vertical-align: middle;
+  padding-top: 20px;
+  padding-left: 20px;
 }
 
 .navigation {
-    float: right;
-    height: 100%;
-    
+  float: right;
+  height: 100%;
 }
 
 .navigation a {
-    height: 100%;
-    display: table;
-    float: left;
-    padding: 0px 15px;
+  height: 100%;
+  display: table;
+  float: left;
+  padding: 0px 15px;
 }
 
 .navigation a li {
-    display: table-cell;
-    vertical-align: middle;
-    font-size: 21px;
-    font-weight: 400;
-    font-family: 'Fira Sans Extra Condensed', sans-serif;
+  display: table-cell;
+  vertical-align: middle;
+  font-size: 21px;
+  font-weight: 400;
+  font-family: "Fira Sans Extra Condensed", sans-serif;
 }
 
 .bottom_header ul {
-    padding-left: 200px;
+  padding-left: 200px;
 }
 
 .bottom_header a {
-    height: 100%;
-    display: table;
-    float: left;
-    padding: 0px 13px;
-    padding-top: 17px;
+  height: 100%;
+  display: table;
+  float: left;
+  padding: 0px 13px;
+  padding-top: 17px;
 }
 
 .bottom_header a li {
-    display: table-cell;
-    vertical-align: middle;
-    font-size: 21px;
-    font-weight: 300;
-    font-family: 'Fira Sans Extra Condensed', sans-serif;
+  display: table-cell;
+  vertical-align: middle;
+  font-size: 21px;
+  font-weight: 300;
+  font-family: "Fira Sans Extra Condensed", sans-serif;
 }

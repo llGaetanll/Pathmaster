@@ -16,34 +16,32 @@ export default class PathfindingVisualizer extends Component {
     };
   }
 
-  componentDidMount() {
+  componentDidMount() {  
     const grid = getInitialGrid();
-    this.setState({ grid });
+    this.setState({grid});
   }
 
   setPieceType(piece) {
-    console.log(piece)
     this.setState({ pieceType: piece })
   }
 
-  handleMouseDown(row, col) {
+  handleMouseDown = (e, row, col) => {
     if (row === undefined && col === undefined) {
       this.setState({ mouseIsPressed: true });
     } else {
-      const newGrid = getNewGrid(this.state.grid, row, col);
+      const newGrid = getNewGrid(this.state.grid, row, col, e);
       this.setState({ grid: newGrid, mouseIsPressed: true });
     }
-
   }
 
-  handleMouseEnter(row, col) {
+  handleMouseEnter = (e, row, col) => {
     if (this.state.mouseIsPressed) {
-      const newGrid = getNewGrid(this.state.grid, row, col);
+      const newGrid = getNewGrid(this.state.grid, row, col, e);
       this.setState({ grid: newGrid });
     }
   }
 
-  handleMouseUp() {
+  handleMouseUp = () => {
     this.setState({ mouseIsPressed: false });
   }
 
@@ -74,7 +72,7 @@ export default class PathfindingVisualizer extends Component {
   }
 
   visualize(algo) {
-    const { grid, pieceType } = this.state;
+    const {grid, pieceType } = this.state;
     console.log(pieceType)
     const startNode = grid[START_NODE_ROW][START_NODE_COL];
     const finishNode = grid[FINISH_NODE_ROW][FINISH_NODE_COL];
@@ -88,15 +86,15 @@ export default class PathfindingVisualizer extends Component {
 
     return (
       <>
-        <Header />
+        <Header handleMouseUp = {this.handleMouseUp}/>
         <div className="grid"
           onMouseUp={() => this.handleMouseUp()}
-          onMouseDown={() => this.handleMouseDown()}>
+          onContextMenu={(e) => e.preventDefault()}>
           {grid.map((row, rowIdx) => {
             return (
               <div className="row" key={rowIdx}>
                 {row.map((node, nodeIdx) => {
-                  const { col, row, isFinish, isStart, isColor, isWall } = node;
+                  const {col, row, isFinish, isStart, isColor, isWall} = node;
                   return (
                     <Node
                       key={nodeIdx}
@@ -106,8 +104,8 @@ export default class PathfindingVisualizer extends Component {
                       isStart={isStart}
                       isWall={isWall}
                       isColor={isColor}
-                      onMouseDown={(row, col) => this.handleMouseDown(row, col)}
-                      onMouseEnter={(row, col) => this.handleMouseEnter(row, col)}
+                      onMouseDown = {(e) => this.handleMouseDown(e, row, col)}
+                      onMouseEnter = {(e) => this.handleMouseEnter(e, row, col)}
                     ></Node>
                   );
                 })}
@@ -142,7 +140,7 @@ export default class PathfindingVisualizer extends Component {
         <p>
           Current selected piece: {pieceType}
         </p>
-        <Footer />
+        <Footer handleMouseUp = {this.handleMouseUp}/>
       </>
     );
   }
@@ -181,10 +179,18 @@ const createNode = (col, row) => {
     isWall: false,
   };
 };
-const getNewGrid = (grid, row, col) => {
+
+const getNewGrid = (grid, row, col, mouse) => {
   const node = grid[row][col];
-  if (!node.isStart && !node.isFinish) {
-    node.isWall = !node.isWall;
+  if (mouse === 1) {
+    if (!node.isStart && !node.isFinish) {
+        node.isWall = true;
+    }
+  } else if (mouse === 3) {
+    if (!node.isStart && !node.isFinish) {
+        node.isWall = false;
+    }
   }
+
   return grid;
 };

@@ -1,8 +1,14 @@
 .grid {
   margin: 0 auto;
-  
 }
 
 .row {
   display: flex;
+}
+
+.App {
+  text-align: center;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  user-select: none;
 }

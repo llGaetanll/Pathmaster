@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 
 import './Footer.css';
 
-function Footer() {
-    return (
-        <div>
-            <div className="footer">
-                <h1>COP3530</h1>
+export default class Footer extends Component {
+    render() {
+        return (
+            <div onMouseUp = {() => this.props.handleMouseUp()}>
+                <div className="footer">
+                    <h1>COP3530</h1>
+                </div>
             </div>
-        </div>
-    )
+        )
+    }
 }
-
-export default Footer;
