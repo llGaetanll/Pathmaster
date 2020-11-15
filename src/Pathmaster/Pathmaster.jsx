@@ -5,6 +5,7 @@ import {bfs} from '../Algorithms/bfs';
 
 import './Pathmaster.css'
 
+<<<<<<< Updated upstream
 const NUM_ROWS = 20;
 const NUM_COLS = 50;
 const START_NODE_ROW = 10;
@@ -13,6 +14,8 @@ const FINISH_NODE_ROW = 10;
 const FINISH_NODE_COL = 35;
 let pieceType = "Knight";
 
+=======
+>>>>>>> Stashed changes
 export default class PathfindingVisualizer extends Component {
     constructor() {
       super();
@@ -25,21 +28,27 @@ export default class PathfindingVisualizer extends Component {
     componentDidMount() {
         const grid = getInitialGrid();
         this.setState({grid});
-      }
+    }
 
     handleMouseDown(row, col) {
-    const newGrid = getNewGridWithWallToggled(this.state.grid, row, col);
-    this.setState({grid: newGrid, mouseIsPressed: true});
+        if (row === undefined && col === undefined) {
+            this.setState({mouseIsPressed: true});
+        } else {
+            const newGrid = getNewGrid(this.state.grid, row, col);
+            this.setState({grid: newGrid, mouseIsPressed: true});
+        }
+        
     }
 
     handleMouseEnter(row, col) {
-    if (!this.state.mouseIsPressed) return;
-    const newGrid = getNewGridWithWallToggled(this.state.grid, row, col);
-    this.setState({grid: newGrid});
+        if (this.state.mouseIsPressed) {
+            const newGrid = getNewGrid(this.state.grid, row, col);
+            this.setState({grid: newGrid});
+        }
     }
 
     handleMouseUp() {
-    this.setState({mouseIsPressed: false});
+        this.setState({mouseIsPressed: false});
     }
     
     animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder) {
@@ -113,7 +122,7 @@ export default class PathfindingVisualizer extends Component {
     }
 
     render() {
-        const {grid, mouseIsPressed} = this.state;
+        const {grid} = this.state;
 
         return (
             <>
@@ -135,6 +144,7 @@ export default class PathfindingVisualizer extends Component {
               <button onClick={() => this.visualizeDijkstra()}>
                 Visualize Dijkstra's Algorithm
               </button>
+<<<<<<< Updated upstream
               <button onClick={() => this.visualizeBfs()}>
                 Visualize BFS Algorithm
               </button>
@@ -142,25 +152,27 @@ export default class PathfindingVisualizer extends Component {
                 Current selected piece: {pieceType}
               </p>
               <div className="grid">
+=======
+              <div className="grid"
+                onMouseUp={() => this.handleMouseUp()}
+                onMouseDown={() => this.handleMouseDown()}>
+>>>>>>> Stashed changes
                 {grid.map((row, rowIdx) => {
                   return (
                     <div key={rowIdx}>
                       {row.map((node, nodeIdx) => {
-                        const {row, col, isFinish, isStart, isWall} = node;
+                        const {col, row, isFinish, isStart, isWall} = node;
                         return (
-                          <Node
-                            key={nodeIdx}
-                            col={col}
-                            isFinish={isFinish}
-                            isStart={isStart}
-                            isWall={isWall}
-                            mouseIsPressed={mouseIsPressed}
-                            onMouseDown={(row, col) => this.handleMouseDown(row, col)}
-                            onMouseEnter={(row, col) =>
-                              this.handleMouseEnter(row, col)
-                            }
-                            onMouseUp={() => this.handleMouseUp()}
-                            row={row}></Node>
+                            <Node
+                                key={nodeIdx}
+                                col={col}
+                                row={row}
+                                isFinish={isFinish}
+                                isStart={isStart}
+                                isWall={isWall}
+                                onMouseDown={(row, col) => this.handleMouseDown(row, col)}
+                                onMouseEnter={(row, col) => this.handleMouseEnter(row, col)}
+                            ></Node>
                         );
                       })}
                     </div>
@@ -172,6 +184,13 @@ export default class PathfindingVisualizer extends Component {
     }
 }
 
+const NUM_ROWS = 21;
+const NUM_COLS = 40;
+const START_NODE_ROW = Math.floor(NUM_ROWS / 2);
+const START_NODE_COL = Math.floor(NUM_COLS / 4);
+const FINISH_NODE_ROW = Math.floor(NUM_ROWS / 2);
+const FINISH_NODE_COL = Math.floor(NUM_COLS * 3/4);
+
 const getInitialGrid = () => {
     const grid = [];
     for (let row = 0; row < NUM_ROWS; row++) {
@@ -182,28 +201,27 @@ const getInitialGrid = () => {
       grid.push(currentRow);
     }
     return grid;
-  };
+};
 
-  const createNode = (col, row) => {
+const createNode = (col, row) => {
     return {
       col,
       row,
+      distance: Infinity,
+      heuristic: Infinity,
+      isVisited: false,
+      isChanged: false,
+      previousNode: null,
       isStart: row === START_NODE_ROW && col === START_NODE_COL,
       isFinish: row === FINISH_NODE_ROW && col === FINISH_NODE_COL,
-      distance: Infinity,
-      isVisited: false,
       isWall: false,
-      previousNode: null,
     };
-  };
-  
-  const getNewGridWithWallToggled = (grid, row, col) => {
-    const newGrid = grid.slice();
-    const node = newGrid[row][col];
-    const newNode = {
-      ...node,
-      isWall: !node.isWall,
-    };
-    newGrid[row][col] = newNode;
-    return newGrid;
-  };
+};
+
+const getNewGrid = (grid, row, col) => {
+    const node = grid[row][col];
+    if (!node.isStart && !node.isFinish) {
+        node.isWall = !node.isWall;
+    }
+    return grid;
+};

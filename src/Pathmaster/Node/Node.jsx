@@ -6,29 +6,34 @@ export default class Node extends Component {
   render() {
     const {
       col,
-      isFinish,
+      row,
+      distance,
+      heuristic,
+      isVisited,
+      previousNode,
       isStart,
+      isFinish,
       isWall,
       onMouseDown,
       onMouseEnter,
-      onMouseUp,
-      row,
+      onMouseUp
     } = this.props;
-    const extraClassName = isFinish
+
+    const nodeType = isFinish
       ? 'node-finish'
       : isStart
       ? 'node-start'
       : isWall
       ? 'node-wall'
-      : '';
+      : 'node-default';
 
     return (
       <div
         id={`node-${row}-${col}`}
-        className={`node ${extraClassName}`}
+        className={`node ${nodeType}`}
         onMouseDown={() => onMouseDown(row, col)}
         onMouseEnter={() => onMouseEnter(row, col)}
-        onMouseUp={() => onMouseUp()}></div>
+      ></div>
     );
   }
 }
