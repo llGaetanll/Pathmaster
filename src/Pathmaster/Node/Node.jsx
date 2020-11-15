@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 
 import './Node.css';
 
@@ -13,6 +13,7 @@ export default class Node extends Component {
       previousNode,
       isStart,
       isFinish,
+      isColor,
       isWall,
       onMouseDown,
       onMouseEnter,
@@ -22,10 +23,12 @@ export default class Node extends Component {
     const nodeType = isFinish
       ? 'node-finish'
       : isStart
-      ? 'node-start'
-      : isWall
-      ? 'node-wall'
-      : 'node-default';
+        ? 'node-start'
+        : isWall
+          ? 'node-wall'
+          : isColor
+            ? 'node-color'
+            : 'node-default';
 
     return (
       <div
