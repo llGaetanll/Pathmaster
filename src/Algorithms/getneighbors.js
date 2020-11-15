@@ -1,4 +1,5 @@
-export function getNeighbors(node, grid, pieceType = "Knight") {
+export function getNeighbors(node, grid, pieceType) {
+	console.log(grid);
 	let neighbors = [];
 	let r = node.row;
 	let c = node.col;
@@ -18,19 +19,29 @@ export function getNeighbors(node, grid, pieceType = "Knight") {
 			neighbors.push(grid[r+1][c-2]);
 		if (r < grid.length-1 && c < grid[0].length-2)
 			neighbors.push(grid[r+1][c+2]);
-		if (r < grid.length-2 && c > 1)
-			neighbors.push(grid[r+2][c-2]);
-		if (r < grid.length-2 && c < grid[0].length-2)
-			neighbors.push(grid[r+2][c+2]);
+		if (r < grid.length-2 && c > 0)
+			neighbors.push(grid[r+2][c-1]);
+		if (r < grid.length-2 && c < grid[0].length-1)
+			neighbors.push(grid[r+2][c+1]);
 	}
 	if (pieceType === "Rook") {
-		//everything in the same row/column
-		for (let i = 0; i < grid.length; i++) {
-			if (i === r) continue;
+		//everything in the same row/column, stop if there's an obstacle
+		//rows:
+		for (let i = r+1; i < grid.length; i++) {
+			if (grid[i][c].isWall) break;
 			neighbors.push(grid[i][c]);
 		}
-		for (let i = 0; i < grid[r].length; i++) {
-			if (i === c) continue;
+		for (let i = r-1; i >= 0; i--) {
+			if (grid[i][c].isWall) break;
+			neighbors.push(grid[i][c]);
+		}
+		//cols:
+		for (let i = c+1; i < grid[r].length; i++) {
+			if (grid[r][i].isWall) break;
+			neighbors.push(grid[r][i]);
+		}
+		for (let i = c-1; i >= 0; i--) {
+			if (grid[r][i].isWall) break;
 			neighbors.push(grid[r][i]);
 		}
 	}
@@ -50,17 +61,28 @@ export function getNeighbors(node, grid, pieceType = "Knight") {
 		if (r < numRows-1 && c < numCols-1) neighbors.push(grid[r+1][c+1]);
 	}
 	if (pieceType === "Bishop") {
-		//two diagonal directions, excepting the square itself
-		let lower = min(r,c);
-		let upper = min(grid.length-1-r, grid[0].length-1-c);
-		for (let i = -lower; i <= upper; i++) {
-			if (i === 0) continue;
+		//two diagonal directions, have to break if there's a wall
+
+		//diagonal direction 1:
+		let lower = Math.min(r,c);
+		let upper = Math.min(grid.length-1-r, grid[0].length-1-c);
+		for (let i = 1; i <= upper; i++) {
+			if (grid[r+i][c+i].isWall) break;
 			neighbors.push(grid[r+i][c+i]);
 		}
-		lower = min(r, grid[0].length-1-c);
-		upper = min(grid.length-1-r, c);
-		for (let i = -lower; i <= upper; i++) {
-			if (i === 0) continue;
+		for (let i = -1; i >= -lower; i--) {
+			if (grid[r+i][c+i].isWall) break;
+			neighbors.push(grid[r+i][c+i]);
+		}
+		//diagonal direction 2:
+		lower = Math.min(r, grid[0].length-1-c);
+		upper = Math.min(grid.length-1-r, c);
+		for (let i = 1; i <= upper; i++) {
+			if (grid[r+i][c-i].isWall) break;
+			neighbors.push(grid[r+i][c-i]);
+		}
+		for (let i = -1; i >= -lower; i--) {
+			if (grid[r+i][c-i].isWall) break;
 			neighbors.push(grid[r+i][c-i]);
 		}
 	}
@@ -69,26 +91,46 @@ export function getNeighbors(node, grid, pieceType = "Knight") {
 		//there won't be any overlap between the two
 
 		//Rook: everything in the same row/column
-		for (let i = 0; i < grid.length; i++) {
-			if (i === r) continue;
+		//rows:
+		for (let i = r+1; i < grid.length; i++) {
+			if (grid[i][c].isWall) break;
 			neighbors.push(grid[i][c]);
 		}
-		for (let i = 0; i < grid[r].length; i++) {
-			if (i === c) continue;
+		for (let i = r-1; i >= 0; i--) {
+			if (grid[i][c].isWall) break;
+			neighbors.push(grid[i][c]);
+		}
+		//cols:
+		for (let i = c+1; i < grid[r].length; i++) {
+			if (grid[r][i].isWall) break;
+			neighbors.push(grid[r][i]);
+		}
+		for (let i = c-1; i >= 0; i--) {
+			if (grid[r][i].isWall) break;
 			neighbors.push(grid[r][i]);
 		}
 
-		//Bishop: two diagonal directions, excepting the square itself
-		let lower = min(r,c);
-		let upper = min(grid.length-1-r, grid[0].length-1-c);
-		for (let i = -lower; i <= upper; i++) {
-			if (i === 0) continue;
+		//Bishop: two diagonal directions
+		//diagonal direction 1:
+		let lower = Math.min(r,c);
+		let upper = Math.min(grid.length-1-r, grid[0].length-1-c);
+		for (let i = 1; i <= upper; i++) {
+			if (grid[r+i][c+i].isWall) break;
 			neighbors.push(grid[r+i][c+i]);
 		}
-		lower = min(r, grid[0].length-1-c);
-		upper = min(grid.length-1-r, c);
-		for (let i = -lower; i <= upper; i++) {
-			if (i === 0) continue;
+		for (let i = -1; i >= -lower; i--) {
+			if (grid[r+i][c+i].isWall) break;
+			neighbors.push(grid[r+i][c+i]);
+		}
+		//diagonal direction 2:
+		lower = Math.min(r, grid[0].length-1-c);
+		upper = Math.min(grid.length-1-r, c);
+		for (let i = 1; i <= upper; i++) {
+			if (grid[r+i][c-i].isWall) break;
+			neighbors.push(grid[r+i][c-i]);
+		}
+		for (let i = -1; i >= -lower; i--) {
+			if (grid[r+i][c-i].isWall) break;
 			neighbors.push(grid[r+i][c-i]);
 		}
 	}

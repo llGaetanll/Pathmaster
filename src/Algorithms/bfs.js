@@ -1,46 +1,53 @@
+// Performs BFS, returns all visited nodes in order for visualization
+// has nodes point to previous node in order to determine what the
+// shortest path was
 
+import {getNeighbors} from './getneighbors.js';
 
-export function bfs(grid, start, finish) {
+export function bfs(grid, start, end) {
 	//assuming all distances have been updated
 	let q = [];
+	let visitedNodes = [];
+	start.distance = 0;
 	//using push/shift to treat this like a queue
 	q.push(start);
-	while (!q.empty()) {
+	while (q.length !== 0) {
 		let curr = q.shift();
+		if (curr.isVisited)
+			continue;
 		curr.isVisited = true;
-		if (curr === finish) {
-			let inOrder = getNodesInOrder(finish);
-			return inOrder;
+		visitedNodes.push(curr);
+		if (curr === end) {
+			return visitedNodes;
 		}
 		updateNeighbors(curr, grid);
-		let neighbors = getValidNeighbors(curr);
+		let neighbors = getValidNeighbors(curr, grid);
 		for (let n of neighbors) {
 			q.push(n);
 		}
 	}
-	return null;
+	return visitedNodes;
 }
 
 function updateNeighbors(node, grid) {
 	let neighbors = getValidNeighbors(node, grid);
 	for (let neighbor of neighbors) {
-		//maybe set 'observed' boolean to true here
-		neighbor.previousNode = node;
+		if (node.distance + 1 < neighbor.distance) {
+			neighbor.distance = node.distance + 1;
+			neighbor.previousNode = node;
+		}
 	}
 }
 
 function getValidNeighbors(node, grid) {
-	let neighbors = [];
-	let row = node.row;
-	let col = node.col;
 	//update neighbors according to piece movement
 	//third parameter is pieceType: capitalized word
-	let neighbors = getNeighbors(node, grid);
+	let neighbors = getNeighbors(node, grid, "Bishop");
 	return neighbors.filter(n => !n.isVisited && !n.isWall);
 }
 
-function getNodesInOrder(finish) {
-	let curr = finish;
+export function getNodesInOrder(end) {
+	let curr = end;
 	let inOrder = [];
 	while (curr !== null) {
 		inOrder.unshift(curr);

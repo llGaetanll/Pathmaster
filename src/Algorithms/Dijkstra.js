@@ -1,66 +1,71 @@
-// Performs Dijkstra's algorithm; returns *all* nodes in the order
-// in which they were visited. Also makes nodes point back to their
-// previous node, effectively allowing us to compute the shortest path
-// by backtracking from the finish node.
-export function dijkstra(grid, startNode, finishNode) {
-    const visitedNodesInOrder = [];
-    startNode.distance = 0;
-    const unvisitedNodes = getAllNodes(grid);
-    while (!!unvisitedNodes.length) {
-      sortNodesByDistance(unvisitedNodes);
-      const closestNode = unvisitedNodes.shift();
-      // If we encounter a wall, we skip it.
-      if (closestNode.isWall) continue;
-      // If the closest node is at a distance of infinity,
-      // we must be trapped and should therefore stop.
-      if (closestNode.distance === Infinity) return visitedNodesInOrder;
-      closestNode.isVisited = true;
-      visitedNodesInOrder.push(closestNode);
-      if (closestNode === finishNode) return visitedNodesInOrder;
-      updateUnvisitedNeighbors(closestNode, grid);
+// Performs Dijkstra's algorithm; returns all visited nodes in order
+// for visualization. Has nodes point to previous node in order to 
+// determine what the shortest path was.
+// Also has a function to display the shortest path which can be used
+// for other pathfinding algs.
+import {PriorityQueue} from './priorityqueue.js';
+import {getNeighbors} from './getneighbors.js';
+
+export function dijkstra(grid, start, end) {
+  //assume all distance of nodes are already Infinity
+  let visitedNodes = [];
+  start.distance = 0;
+  //create a priority queue to hold nodes by shortest distance
+  let cmp = (a,b) => a.distance < b.distance;
+  let pq = new PriorityQueue(cmp);
+  pq.push(start);
+  while (!pq.empty()) {
+    let curr = pq.pop();
+    if (curr.isVisited)
+      continue;
+    curr.isVisited = true;
+    //have to keep track of all visited nodes for visualization
+    visitedNodes.push(curr);
+    if (curr === end)
+      return visitedNodes;
+    updateNeighbors(curr, grid);
+    let neighbors = getValidNeighbors(curr, grid);
+    for (let n of neighbors) {
+      pq.push(n);
     }
   }
-  
-  function sortNodesByDistance(unvisitedNodes) {
-    unvisitedNodes.sort((nodeA, nodeB) => nodeA.distance - nodeB.distance);
+  //if we didn't reach the end, return emtpy array to indicate unsuccessful
+  //need to fix this because this isn't a good solution for now
+  return visitedNodes;
+}
+
+  function dist(a, b) {
+    let x = a.row - b.row;
+    let y = a.col - b.col;
+    return Math.sqrt(Math.pow(x,2) + Math.pow(y,2));
   }
   
-  function updateUnvisitedNeighbors(node, grid) {
-    const unvisitedNeighbors = getUnvisitedNeighbors(node, grid);
-    for (const neighbor of unvisitedNeighbors) {
-      neighbor.distance = node.distance + 1;
-      neighbor.previousNode = node;
-    }
-  }
-  
-  function getUnvisitedNeighbors(node, grid) {
-    const neighbors = [];
-    const {col, row} = node;
-    if (row > 0) neighbors.push(grid[row - 1][col]);
-    if (row < grid.length - 1) neighbors.push(grid[row + 1][col]);
-    if (col > 0) neighbors.push(grid[row][col - 1]);
-    if (col < grid[0].length - 1) neighbors.push(grid[row][col + 1]);
-    return neighbors.filter(neighbor => !neighbor.isVisited);
-  }
-  
-  function getAllNodes(grid) {
-    const nodes = [];
-    for (const row of grid) {
-      for (const node of row) {
-        nodes.push(node);
+  function updateNeighbors(node, grid) {
+    let unvisitedNeighbors = getValidNeighbors(node, grid);
+    for (let neighbor of unvisitedNeighbors) {
+      let newDistance = node.distance + dist(neighbor, node);
+      if (newDistance < neighbor.distance) {
+        neighbor.distance = newDistance;
+        neighbor.previousNode = node;
       }
     }
-    return nodes;
+  }
+  
+  function getValidNeighbors(node, grid) {
+    //update neighbors according to piece movement
+    //third parameter is pieceType: capitalized word
+    let neighbors = getNeighbors(node, grid, "Bishop");
+    return neighbors.filter(n => !n.isVisited && !n.isWall);
   }
   
   // Backtracks from the finishNode to find the shortest path.
-  // Only works when called *after* the dijkstra method above.
-  export function getNodesInShortestPathOrder(finishNode) {
-    const nodesInShortestPathOrder = [];
-    let currentNode = finishNode;
-    while (currentNode !== null) {
-      nodesInShortestPathOrder.unshift(currentNode);
-      currentNode = currentNode.previousNode;
+  // Works for any search alg so this method can be used for all of them
+  export function getNodesInOrder(finish) {
+    let inOrder = [];
+    let curr = finish;
+    while (curr !== null) {
+      inOrder.unshift(curr);
+      curr = curr.previousNode;
     }
-    return nodesInShortestPathOrder;
+    return inOrder;
   }

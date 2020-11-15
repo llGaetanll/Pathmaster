@@ -1,11 +1,11 @@
 export class PriorityQueue {
 	constructor(comp = (a,b)=>a>b) {
-		this.data = new Array();
+		this.data = [];
 		this.comp = comp;
 	}
 
 	empty() {
-		return this.data.length == 0;
+		return (this.data.length === 0);
 	}
 
 	size() {
@@ -35,7 +35,7 @@ export class PriorityQueue {
 	}
 
 	heapifyUp(index) {
-		while (index != 0) {
+		while (index !== 0) {
 			let parent = Math.floor((index-1)/2);
 			if (this.comp(this.data[index], this.data[parent])) {
 				let temp = this.data[parent];
@@ -64,7 +64,7 @@ export class PriorityQueue {
 				break;
 			}
 		}
-		if (2*index+2 == this.data.length) {
+		if (2*index+2 === this.data.length) {
 			let left = this.data[2*index+1];
 			if (this.comp(left, this.data[index])) {
 				let temp = this.data[index];
