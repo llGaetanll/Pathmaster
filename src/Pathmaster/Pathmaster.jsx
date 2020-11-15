@@ -11,6 +11,7 @@ const START_NODE_ROW = 10;
 const START_NODE_COL = 15;
 const FINISH_NODE_ROW = 10;
 const FINISH_NODE_COL = 35;
+let pieceType = "Knight";
 
 export default class PathfindingVisualizer extends Component {
     constructor() {
@@ -97,7 +98,7 @@ export default class PathfindingVisualizer extends Component {
         const {grid} = this.state;
         const startNode = grid[START_NODE_ROW][START_NODE_COL];
         const finishNode = grid[FINISH_NODE_ROW][FINISH_NODE_COL];
-        const visitedNodesInOrder = bfs(grid, startNode, finishNode);
+        const visitedNodesInOrder = bfs(grid, startNode, finishNode, pieceType);
         const nodesInShortestPathOrder = getNodesInOrder(finishNode);
         this.animateBfs(visitedNodesInOrder, nodesInShortestPathOrder);
     }
@@ -106,7 +107,7 @@ export default class PathfindingVisualizer extends Component {
         const {grid} = this.state;
         const startNode = grid[START_NODE_ROW][START_NODE_COL];
         const finishNode = grid[FINISH_NODE_ROW][FINISH_NODE_COL];
-        const visitedNodesInOrder = dijkstra(grid, startNode, finishNode);
+        const visitedNodesInOrder = dijkstra(grid, startNode, finishNode, pieceType);
         const nodesInShortestPathOrder = getNodesInOrder(finishNode);
         this.animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder);
     }
@@ -116,12 +117,30 @@ export default class PathfindingVisualizer extends Component {
 
         return (
             <>
+              <button onClick={() => pieceType = "Bishop"}>
+                Bishop
+              </button>
+              <button onClick={() => pieceType = "Rook"}>
+                Rook
+              </button>
+              <button onClick={() => pieceType = "Knight"}>
+                Knight
+              </button>
+              <button onClick={() => pieceType = "King"}>
+                King
+              </button>
+              <button onClick={() => pieceType = "Queen"}>
+                Queen
+              </button>
               <button onClick={() => this.visualizeDijkstra()}>
                 Visualize Dijkstra's Algorithm
               </button>
               <button onClick={() => this.visualizeBfs()}>
                 Visualize BFS Algorithm
               </button>
+              <p>
+                Current selected piece: {pieceType}
+              </p>
               <div className="grid">
                 {grid.map((row, rowIdx) => {
                   return (
