@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Node from './Node/Node'
-import {dijkstra, getNodesInShortestPathOrder} from '../Algorithms/Dijkstra';
+import {dijkstra, getNodesInOrder} from '../Algorithms/Dijkstra';
+import {bfs} from '../Algorithms/bfs';
 
 import './Pathmaster.css'
 
@@ -65,13 +66,48 @@ export default class PathfindingVisualizer extends Component {
           }, 50 * i);
         }
     }
+
+    animateBfs(visitedNodesInOrder, nodesInShortestPathOrder) {
+        for (let i = 0; i <= visitedNodesInOrder.length; i++) {
+          if (i === visitedNodesInOrder.length) {
+            setTimeout(() => {
+              this.animateShortestPath(nodesInShortestPathOrder);
+            }, 10 * i);
+            return;
+          }
+          setTimeout(() => {
+            const node = visitedNodesInOrder[i];
+            document.getElementById(`node-${node.row}-${node.col}`).className =
+              'node node-visited';
+          }, 10 * i);
+        }
+      }
+    
+      animateShortestPath(nodesInShortestPathOrder) {
+        for (let i = 0; i < nodesInShortestPathOrder.length; i++) {
+          setTimeout(() => {
+            const node = nodesInShortestPathOrder[i];
+            document.getElementById(`node-${node.row}-${node.col}`).className =
+              'node node-shortest-path';
+          }, 50 * i);
+        }
+    }
+
+    visualizeBfs() {
+        const {grid} = this.state;
+        const startNode = grid[START_NODE_ROW][START_NODE_COL];
+        const finishNode = grid[FINISH_NODE_ROW][FINISH_NODE_COL];
+        const visitedNodesInOrder = bfs(grid, startNode, finishNode);
+        const nodesInShortestPathOrder = getNodesInOrder(finishNode);
+        this.animateBfs(visitedNodesInOrder, nodesInShortestPathOrder);
+    }
     
     visualizeDijkstra() {
         const {grid} = this.state;
         const startNode = grid[START_NODE_ROW][START_NODE_COL];
         const finishNode = grid[FINISH_NODE_ROW][FINISH_NODE_COL];
         const visitedNodesInOrder = dijkstra(grid, startNode, finishNode);
-        const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
+        const nodesInShortestPathOrder = getNodesInOrder(finishNode);
         this.animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder);
     }
 
@@ -82,6 +118,9 @@ export default class PathfindingVisualizer extends Component {
             <>
               <button onClick={() => this.visualizeDijkstra()}>
                 Visualize Dijkstra's Algorithm
+              </button>
+              <button onClick={() => this.visualizeBfs()}>
+                Visualize BFS Algorithm
               </button>
               <div className="grid">
                 {grid.map((row, rowIdx) => {
