@@ -12,17 +12,26 @@ export default class PathfindingVisualizer extends Component {
     this.state = {
       grid: [],
       mouseIsPressed: false,
-      pieceType: "Knight"
+      pieceType: "Knight",
+      algorithm: "Djikstra"
     };
   }
 
   componentDidMount() {  
+    this.resetBoard();
+  }
+
+  resetBoard() {
     const grid = getInitialGrid();
-    this.setState({grid});
+    this.setState({grid});      
   }
 
   setPieceType(piece) {
     this.setState({ pieceType: piece })
+  }
+
+  setAlgorithm(algo) {
+    this.setState({algorithm: algo})
   }
 
   handleMouseDown = (e, row, col) => {
@@ -45,7 +54,12 @@ export default class PathfindingVisualizer extends Component {
     this.setState({ mouseIsPressed: false });
   }
 
-  animate(visitedNodesInOrder, nodesInShortestPathOrder) {
+  async clearPath() {
+    
+  }
+
+  async animate(visitedNodesInOrder, nodesInShortestPathOrder) {
+    await this.clearPath();
     for (let i = 0; i <= visitedNodesInOrder.length; i++) {
       if (i === visitedNodesInOrder.length) {
         setTimeout(() => {
@@ -73,7 +87,6 @@ export default class PathfindingVisualizer extends Component {
 
   visualize(algo) {
     const {grid, pieceType } = this.state;
-    console.log(pieceType)
     const startNode = grid[START_NODE_ROW][START_NODE_COL];
     const finishNode = grid[FINISH_NODE_ROW][FINISH_NODE_COL];
     const visitedNodesInOrder = runAlgorithm(algo, grid, startNode, finishNode, pieceType);
@@ -82,7 +95,7 @@ export default class PathfindingVisualizer extends Component {
   }
 
   render() {
-    var { grid, pieceType } = this.state;
+    var { grid, pieceType, algorithm} = this.state;
 
     return (
       <>
@@ -128,18 +141,27 @@ export default class PathfindingVisualizer extends Component {
         <button onClick={(e) => this.setPieceType(e.target.innerHTML)}>
           Queen
               </button>
-        <button onClick={() => this.visualize("Dijkstra")}>
-          Visualize Dijkstra's Algorithm
+        <button onClick={() => this.setAlgorithm("Djikstra")}>
+          Dijkstra's Algorithm
               </button>
-        <button onClick={() => this.visualize("BFS")}>
-          Visualize BFS Algorithm
+        <button onClick={() => this.setAlgorithm("BFS")}>
+          BFS Algorithm
               </button>
-        <button onClick={() => this.visualize("Astar")}>
-          Visualize A* Algorithm
+        <button onClick={() => this.setAlgorithm("Astar")}>
+          A* Algorithm
               </button>
+        <button onClick={() => this.visualize(algorithm)}>
+          Run
+            </button>
+        <button onClick={() => this.resetBoard()}>
+          Reset
+        </button>
         <p>
           Current selected piece: {pieceType}
         </p>
+        <p>
+          Current selected algorithm: {algorithm}
+        </p>    
         <Footer handleMouseUp = {this.handleMouseUp}/>
       </>
     );

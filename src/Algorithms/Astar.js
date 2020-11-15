@@ -5,8 +5,8 @@
 // has nodes point to previous node to determine what the 
 // shortest path was.
 
-import {PriorityQueue} from './priorityqueue.js';
-import {getNeighbors, dist} from './getneighbors.js';
+import {PriorityQueue} from './priorityQueue.js';
+import {getNeighbors, dist} from './getNeighbors.js';
 
 
 //following pseudocode from https://en.wikipedia.org/wiki/A*_search_algorithm
