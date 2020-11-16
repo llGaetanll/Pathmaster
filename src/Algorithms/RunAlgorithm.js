@@ -12,9 +12,9 @@ export function runAlgorithm(alg, grid, start, end, pieceType) {
 		return dijkstra(grid, start, end, pieceType);
 	} else if (alg === "BFS") {
 		return bfs(grid, start, end, pieceType);
-	} else if (alg === "AstarWeighted") {
+	} else if (alg === "A* (Weighted)") {
 		return astar(grid, start, end, pieceType, true);
-	} else if (alg === "AstarUnweighted") {
+	} else if (alg === "A* (Unweighted)") {
 		return astar(grid, start, end, pieceType, false);
 	} else {
 		console.log("error")
