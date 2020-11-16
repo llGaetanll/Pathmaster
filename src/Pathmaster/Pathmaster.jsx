@@ -26,7 +26,7 @@ export default class PathfindingVisualizer extends Component {
     this.setState({grid});      
   }
 
-  setPieceType(piece) {
+  setPieceType = (piece) => {
     this.setState({ pieceType: piece })
   }
 
@@ -72,8 +72,7 @@ export default class PathfindingVisualizer extends Component {
               this.animateShortestPath(nodesInShortestPathOrder);
             }, 10 * visitedNodesInOrder.length);
             return;
-    }
-    else {
+    } else {
       //display error, shortest path not found
     }
   }
@@ -102,7 +101,8 @@ export default class PathfindingVisualizer extends Component {
 
     return (
       <>
-        <Header handleMouseUp = {this.handleMouseUp}/>
+        <Header handleMouseUp = {this.handleMouseUp}
+                setPieceType = {this.setPieceType}/>
         <div className="grid"
           onMouseUp={() => this.handleMouseUp()}
           onContextMenu={(e) => e.preventDefault()}>
@@ -129,33 +129,6 @@ export default class PathfindingVisualizer extends Component {
             );
           })}
         </div>
-        <button onClick={(e) => this.setPieceType(e.target.innerHTML)}>
-          Bishop
-              </button>
-        <button onClick={(e) => this.setPieceType(e.target.innerHTML)}>
-          Rook
-              </button>
-        <button onClick={(e) => this.setPieceType(e.target.innerHTML)}>
-          Knight
-              </button>
-        <button onClick={(e) => this.setPieceType(e.target.innerHTML)}>
-          King
-              </button>
-        <button onClick={(e) => this.setPieceType(e.target.innerHTML)}>
-          Queen
-              </button>
-        <button onClick={() => this.setAlgorithm("Dijkstra")}>
-          Dijkstra's
-              </button>
-        <button onClick={() => this.setAlgorithm("BFS")}>
-          BFS
-              </button>
-        <button onClick={() => this.setAlgorithm("A* (Weighted)")}>
-          A* (weighted)
-              </button>
-        <button onClick={() => this.setAlgorithm("A* (Unweighted)")}>
-          A* (unweighted)
-              </button>
         <button onClick={() => this.visualize(algorithm)}>
           Run
             </button>
