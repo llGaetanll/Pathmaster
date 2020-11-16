@@ -39,11 +39,11 @@ export default class Footer extends Component {
                             <h1>Select Algorithm:</h1>
                             <div class="selectdiv">
                                 <label>
-                                    <select>
+                                    <select onChange={(e) => this.props.setAlgorithm(e.target.value)}>
                                         <option selected> --- </option>
-                                        <option>Dijkstra's Algorithm</option>
-                                        <option>Breadth-First Search</option>
-                                        <option>A* Search</option>
+                                        <option value="Dijkstra">Dijkstra's Algorithm</option>
+                                        <option value="BFS">Breadth-First Search</option>
+                                        <option value="Astar">A* Search</option>
                                     </select>
                                 </label>
                             </div>

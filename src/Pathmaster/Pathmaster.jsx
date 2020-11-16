@@ -30,7 +30,7 @@ export default class PathfindingVisualizer extends Component {
     this.setState({ pieceType: piece })
   }
 
-  setAlgorithm(algo) {
+  setAlgorithm = (algo) => {
     this.setState({algorithm: algo})
   }
 
@@ -97,12 +97,14 @@ export default class PathfindingVisualizer extends Component {
   }
 
   render() {
-    var { grid, pieceType, algorithm} = this.state;
+    var {grid, pieceType, algorithm} = this.state;
 
     return (
       <>
         <Header handleMouseUp = {this.handleMouseUp}
-                setPieceType = {this.setPieceType}/>
+                setPieceType = {this.setPieceType}
+                setAlgorithm = {this.setAlgorithm}
+                />
         <div className="grid"
           onMouseUp={() => this.handleMouseUp()}
           onContextMenu={(e) => e.preventDefault()}>
