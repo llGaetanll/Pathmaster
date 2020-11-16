@@ -2,8 +2,8 @@
 // for visualization. Has nodes point to previous node in order to
 // determine what the shortest path was.
 
-import {PriorityQueue} from './priorityqueue.js';
-import {getNeighbors} from './getneighbors.js';
+import {PriorityQueue} from './priorityQueue.js';
+import {getNeighbors, dist} from './getNeighbors.js';
 
 export function dijkstra(grid, start, end, pieceType) {
 	//assume distance of all nodes is already Infinity
@@ -31,12 +31,6 @@ export function dijkstra(grid, start, end, pieceType) {
 	//if we didn't reach the end, return what we have anyway
 	//may want to change how we handle this case
 	return visitedNodes;
-}
-
-function dist (a, b) {
-	let x = a.row - b.row;
-	let y = a.col - b.col;
-	return Math.sqrt(Math.pow(x,2) + Math.pow(y,2));
 }
 
 function updateNeighbors(node, grid, pieceType) {

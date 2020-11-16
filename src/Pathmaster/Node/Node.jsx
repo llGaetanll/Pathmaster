@@ -16,8 +16,7 @@ export default class Node extends Component {
       isColor,
       isWall,
       onMouseDown,
-      onMouseEnter,
-      onMouseUp
+      onMouseEnter
     } = this.props;
 
     const nodeType = isFinish
@@ -34,8 +33,8 @@ export default class Node extends Component {
       <div
         id={`node-${row}-${col}`}
         className={`node ${nodeType}`}
-        onMouseDown={() => onMouseDown(row, col)}
-        onMouseEnter={() => onMouseEnter(row, col)}
+        onMouseDown={(e) => onMouseDown(e.nativeEvent.which, row, col)}
+        onMouseEnter={(e) => onMouseEnter(e.nativeEvent.which, row, col)}
       ></div>
     );
   }

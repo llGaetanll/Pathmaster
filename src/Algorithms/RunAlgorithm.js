@@ -3,7 +3,8 @@
 // from src/Algorithms
 
 import {dijkstra} from './Dijkstra.js';
-import {bfs} from './bfs.js';
+import {bfs} from './BFS.js';
+import {astar} from './Astar.js';
 
 
 //runs a given algorith, just a wrapper for all the pathfinding algs
@@ -13,6 +14,12 @@ export function runAlgorithm(alg, grid, start, end, pieceType) {
 	}
 	if (alg === "BFS") {
 		return bfs(grid, start, end, pieceType);
+	}
+	if (alg === "AstarWeighted") {
+		return astar(grid, start, end, pieceType, true);
+	}
+	if (alg === "AstarUnweighted") {
+		return astar(grid, start, end, pieceType, false);
 	}
 }
 

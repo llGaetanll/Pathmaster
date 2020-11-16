@@ -2,7 +2,7 @@
 // has nodes point to previous node in order to determine what the
 // shortest path was
 
-import {getNeighbors} from './getneighbors.js';
+import {getNeighbors} from './getNeighbors.js';
 
 export function bfs(grid, start, end, pieceType) {
 	//assuming all distances have been updated
@@ -44,14 +44,4 @@ function getValidNeighbors(node, grid, pieceType) {
 	//third parameter is pieceType: capitalized word
 	let neighbors = getNeighbors(node, grid, pieceType);
 	return neighbors.filter(n => !n.isVisited && !n.isWall);
-}
-
-export function getNodesInOrder(end) {
-	let curr = end;
-	let inOrder = [];
-	while (curr !== null) {
-		inOrder.unshift(curr);
-		curr = curr.previousNode;
-	}
-	return inOrder;
 }

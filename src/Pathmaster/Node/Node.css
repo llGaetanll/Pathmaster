@@ -3,13 +3,12 @@
   height: 25px;
   outline: 0px solid rgb(189, 189, 189);
   display: inline-block;
-  box-shadow: 0 1px 0 rgb(189, 189, 189) inset,
-              1px 0 0 rgb(189, 189, 189) inset,
-              0 1px 0 rgb(189, 189, 189) inset;
+  box-shadow: 0 1px 0 rgb(189, 189, 189) inset, 1px 0 0 rgb(189, 189, 189) inset,
+    0 1px 0 rgb(189, 189, 189) inset;
 }
 
 .node-color {
-  background-color: rgb(232,232,232);
+  background-color: rgb(232, 232, 232);
   outline: 0px solid rgb(189, 189, 189);
   border-top: 1px black;
   display: inline-block;
@@ -22,7 +21,7 @@
 }
 
 .node-start {
-  background-color: gold;
+  background-color: green;
   margin: 0;
   padding: 0;
 }
