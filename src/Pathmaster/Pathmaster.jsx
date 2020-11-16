@@ -13,7 +13,7 @@ export default class PathfindingVisualizer extends Component {
       grid: [],
       mouseIsPressed: false,
       pieceType: "Knight",
-      algorithm: "Djikstra"
+      algorithm: "A* (Unweighted)"
     };
   }
 
@@ -87,12 +87,12 @@ export default class PathfindingVisualizer extends Component {
     }
   }
 
-  visualize(algo) {
+  visualize(algo, showAll) {
     const {grid, pieceType } = this.state;
     const startNode = grid[START_NODE_ROW][START_NODE_COL];
     const finishNode = grid[FINISH_NODE_ROW][FINISH_NODE_COL];
     const visitedNodesInOrder = runAlgorithm(algo, grid, startNode, finishNode, pieceType);
-    const nodesInShortestPathOrder = getNodesInOrder(finishNode);
+    const nodesInShortestPathOrder = getNodesInOrder(finishNode, pieceType, showAll, grid);
     this.animate(visitedNodesInOrder, nodesInShortestPathOrder, startNode);
   }
 
@@ -129,7 +129,7 @@ export default class PathfindingVisualizer extends Component {
             );
           })}
         </div>
-        <button onClick={() => this.visualize(algorithm)}>
+        <button onClick={() => this.visualize(algorithm, true)}>
           Run
             </button>
         <button onClick={() => this.resetBoard()}>
