@@ -106,52 +106,54 @@ export default class PathfindingVisualizer extends Component {
 
     return (
       <>
-        <Header handleMouseUp={this.handleMouseUp}
-          setPieceType={this.setPieceType}
-          resetBoard={this.resetBoard}
-          setAlgorithm={this.setAlgorithm}
-          visualize={this.visualize}
-        />
-        <div className="grid"
-          onMouseUp={() => this.handleMouseUp()}
-          onContextMenu={(e) => e.preventDefault()}>
-          {grid.map((row, rowIdx) => {
-            return (
-              <div className="row" key={rowIdx}>
-                {row.map((node, nodeIdx) => {
-                  const { col, row, isFinish, isStart, isColor, isWall } = node;
-                  return (
-                    <Node
-                      key={nodeIdx}
-                      col={col}
-                      row={row}
-                      isFinish={isFinish}
-                      isStart={isStart}
-                      isWall={isWall}
-                      isColor={isColor}
-                      onMouseDown={(e) => this.handleMouseDown(e, row, col)}
-                      onMouseEnter={(e) => this.handleMouseEnter(e, row, col)}
-                    ></Node>
-                  );
-                })}
-              </div>
-            );
-          })}
+        <div className="body">
+          <Header handleMouseUp={this.handleMouseUp}
+            setPieceType={this.setPieceType}
+            resetBoard={this.resetBoard}
+            setAlgorithm={this.setAlgorithm}
+            visualize={this.visualize}
+          />
+          <div className="grid"
+            onMouseUp={() => this.handleMouseUp()}
+            onContextMenu={(e) => e.preventDefault()}>
+            {grid.map((row, rowIdx) => {
+              return (
+                <div className="row" key={rowIdx}>
+                  {row.map((node, nodeIdx) => {
+                    const { col, row, isFinish, isStart, isColor, isWall } = node;
+                    return (
+                      <Node
+                        key={nodeIdx}
+                        col={col}
+                        row={row}
+                        isFinish={isFinish}
+                        isStart={isStart}
+                        isWall={isWall}
+                        isColor={isColor}
+                        onMouseDown={(e) => this.handleMouseDown(e, row, col)}
+                        onMouseEnter={(e) => this.handleMouseEnter(e, row, col)}
+                      ></Node>
+                    );
+                  })}
+                </div>
+              );
+            })}
+          </div>
+          <p className="current">
+            Current Piece: {pieceType}
+          </p>
+          <p className="current">
+            Current Algorithm: {algorithm}
+          </p>
+          <Footer handleMouseUp={this.handleMouseUp} />
         </div>
-        <p>
-          Current selected piece: {pieceType}
-        </p>
-        <p>
-          Current selected algorithm: {algorithm}
-        </p>
-        <Footer handleMouseUp={this.handleMouseUp} />
       </>
     );
   }
 }
 
 const NUM_ROWS = 30;
-const NUM_COLS = 70;
+const NUM_COLS = 72;
 const START_NODE_ROW = Math.floor(NUM_ROWS / 2);
 const START_NODE_COL = Math.floor(NUM_COLS / 4);
 const FINISH_NODE_ROW = Math.floor(NUM_ROWS / 2);
