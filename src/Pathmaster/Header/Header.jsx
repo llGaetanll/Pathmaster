@@ -43,7 +43,8 @@ export default class Footer extends Component {
                                         <option selected> --- </option>
                                         <option value="Dijkstra">Dijkstra's Algorithm</option>
                                         <option value="BFS">Breadth-First Search</option>
-                                        <option value="Astar">A* Search</option>
+                                        <option value="A* (Weighted)">A* Search (Weighted)</option>
+                                        <option value="A* (Unweighted)">A* Search (Unweighted)</option>
                                     </select>
                                 </label>
                             </div>
