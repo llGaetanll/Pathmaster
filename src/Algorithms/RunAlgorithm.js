@@ -3,7 +3,7 @@
 // from src/Algorithms
 
 import {dijkstra} from './Dijkstra.js';
-import {bfs} from './bfs.js';
+import {bfs} from './BFS.js';
 import {astar} from './Astar.js';
 
 
