@@ -134,8 +134,11 @@ export default class PathfindingVisualizer extends Component {
         <button onClick={() => this.visualize("BFS")}>
           Visualize BFS Algorithm
               </button>
-        <button onClick={() => this.visualize("Astar")}>
-          Visualize A* Algorithm
+        <button onClick={() => this.visualize("AstarWeighted")}>
+          Visualize A* Algorithm (weighted)
+              </button>
+        <button onClick={() => this.visualize("AstarUnweighted")}>
+          Visualize A* Algorithm (unweighted)
               </button>
         <p>
           Current selected piece: {pieceType}

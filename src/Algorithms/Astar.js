@@ -10,9 +10,12 @@ import {getNeighbors, dist} from './getneighbors.js';
 
 
 //following pseudocode from https://en.wikipedia.org/wiki/A*_search_algorithm
-export function astar(grid, start, end, pieceType) {
+//heuristic is distance to target node
+//isDijkstra is a boolean, if true it will be dijkstra-based with heuristic
+//if false, it will perform bfs-based search with heuristic
+export function astar(grid, start, end, pieceType, isWeighted) {
 	let visitedNodes = [];
-	let cmp = (a,b) => a.distance + a.heuristic < b.distance + b.heuristic;
+	let cmp = (a,b) => (a.distance + a.heuristic) < (b.distance + b.heuristic);
 	let openSet = new PriorityQueue(cmp);
 	start.distance = 0;
 	openSet.push(start);
@@ -24,7 +27,7 @@ export function astar(grid, start, end, pieceType) {
 		visitedNodes.push(curr);
 		if (curr === end)
 			return visitedNodes;
-		updateNeighbors(curr, grid, pieceType);
+		updateNeighbors(curr, grid, pieceType, isWeighted);
 		let neighbors = getValidNeighbors(curr, grid, pieceType);
 		for (let n of neighbors) {
 			openSet.push(n);
@@ -34,10 +37,14 @@ export function astar(grid, start, end, pieceType) {
 	return visitedNodes;
 }
 
-function updateNeighbors(node, grid, pieceType) {
+function updateNeighbors(node, grid, pieceType, isWeighted) {
 	let unvisitedNeighbors = getValidNeighbors(node, grid, pieceType);
 	for (let neighbor of unvisitedNeighbors) {
-		let newDistance = node.distance + dist(neighbor, node);
+		let newDistance = 1;
+		if (isWeighted)
+			newDistance = node.distance + dist(neighbor, node);
+		else
+			newDistance = node.distance + 1;
 		if (newDistance < neighbor.distance) {
 			neighbor.distance = newDistance;
 			neighbor.previousNode = node;

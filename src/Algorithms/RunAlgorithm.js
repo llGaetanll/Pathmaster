@@ -15,8 +15,11 @@ export function runAlgorithm(alg, grid, start, end, pieceType) {
 	if (alg === "BFS") {
 		return bfs(grid, start, end, pieceType);
 	}
-	if (alg === "Astar") {
-		return astar(grid, start, end, pieceType);
+	if (alg === "AstarWeighted") {
+		return astar(grid, start, end, pieceType, true);
+	}
+	if (alg === "AstarUnweighted") {
+		return astar(grid, start, end, pieceType, false);
 	}
 }
 
