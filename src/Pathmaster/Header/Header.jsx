@@ -12,10 +12,10 @@ export default class Footer extends Component {
     render() {
         return (
             <div>
-                <div className="header" onClick = {() => this.props.handleMouseUp()}>
+                <div className="header" onClick={() => this.props.handleMouseUp()}>
                     <div className="top_header">
                         <div className="logo_holder">
-                            <a><li onClick = {() => this.props.setPieceType("Pawn")}><img src="https://www.flaticon.com/svg/static/icons/svg/107/107613.svg" width="35" ></img></li></a>
+                            <a><li onClick={() => this.props.setPieceType("Pawn")}><img src="https://www.flaticon.com/svg/static/icons/svg/107/107613.svg" width="35" ></img></li></a>
                             <h1>PATH<span>MASTER</span></h1>
                         </div>
                         <ul class="navigation">
@@ -28,11 +28,11 @@ export default class Footer extends Component {
                         <ul class="piece_select">
                             <a><li>Select a Piece:</li></a>
                             <span>
-                                <a><li onClick = {() => this.props.setPieceType("King")}><img src={king} width="35"></img></li></a>
-                                <a><li onClick = {() => this.props.setPieceType("Queen")}><img src={queen} width="35"></img></li></a>
-                                <a><li onClick = {() => this.props.setPieceType("Bishop")}><img src={bishop} width="35"></img></li></a>
-                                <a><li onClick = {() => this.props.setPieceType("Rook")}><img src={rook} width="35"></img></li></a>
-                                <a><li onClick = {() => this.props.setPieceType("Knight")}><img src={knight} width="35"></img></li></a>
+                                <a><li onClick={() => this.props.setPieceType("King")}><img src={king} width="35"></img></li></a>
+                                <a><li onClick={() => this.props.setPieceType("Queen")}><img src={queen} width="35"></img></li></a>
+                                <a><li onClick={() => this.props.setPieceType("Bishop")}><img src={bishop} width="35"></img></li></a>
+                                <a><li onClick={() => this.props.setPieceType("Rook")}><img src={rook} width="35"></img></li></a>
+                                <a><li onClick={() => this.props.setPieceType("Knight")}><img src={knight} width="35"></img></li></a>
                             </span>
                         </ul>
                         <div className="algo_select">

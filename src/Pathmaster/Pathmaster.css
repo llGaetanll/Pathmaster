@@ -6,6 +6,10 @@
   display: flex;
 }
 
+.bodybody {
+  background-color: red;
+}
+
 .App {
   text-align: center;
   -moz-user-select: none;
