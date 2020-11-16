@@ -2,6 +2,7 @@
 
 .grid {
   margin: 0 auto;
+  border-bottom: 2px solid black;
 }
 
 .row {
@@ -16,6 +17,7 @@
   font-size: 15px;
   font-weight: 300;
   font-family: "Montserrat", sans-serif;
+  padding-top: 5px;
 }
 
 .App {

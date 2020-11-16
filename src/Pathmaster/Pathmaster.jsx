@@ -145,6 +145,7 @@ export default class PathfindingVisualizer extends Component {
           <p className="current">
             Current Algorithm: {algorithm}
           </p>
+          <br></br>
           <Footer handleMouseUp={this.handleMouseUp} />
         </div>
       </>
