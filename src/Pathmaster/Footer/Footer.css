@@ -1,5 +1,14 @@
 .footer {
-  background-color: rgb(50, 50, 50);
-  height: 5vh;
+  background-color: rgb(245, 195, 66);
+  height: 3vh;
   width: 100%;
+  color: black;
+  font-size: 21px;
+  font-weight: 400;
+  font-family: "Fira Sans Extra Condensed", sans-serif;
+  vertical-align: middle;
+}
+
+.heart {
+    color:#e25555;
 }

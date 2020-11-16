@@ -13,7 +13,7 @@ export default class PathfindingVisualizer extends Component {
       grid: [],
       mouseIsPressed: false,
       pieceType: "Knight",
-      algorithm: "Djikstra"
+      algorithm: "A* (Unweighted)"
     };
   }
 
@@ -21,7 +21,7 @@ export default class PathfindingVisualizer extends Component {
     this.resetBoard();
   }
 
-  resetBoard() {
+  resetBoard = () => {
     const grid = getInitialGrid();
     this.setState({ grid });
   }
@@ -30,7 +30,7 @@ export default class PathfindingVisualizer extends Component {
     this.setState({ pieceType: piece })
   }
 
-  setAlgorithm(algo) {
+  setAlgorithm = (algo) => {
     this.setState({ algorithm: algo })
   }
 
@@ -55,7 +55,12 @@ export default class PathfindingVisualizer extends Component {
   }
 
   async clearPath() {
-
+    var clearNodes = document.getElementsByClassName('node-visited');
+    if (clearNodes !== undefined) {
+      for (let i = 0; i < clearNodes.length; i++) {
+        clearNodes[i].className = ''
+      }
+    }
   }
 
   async animate(visitedNodesInOrder, nodesInShortestPathOrder, startNode) {
@@ -77,7 +82,7 @@ export default class PathfindingVisualizer extends Component {
     }
   }
 
-  animateShortestPath(nodesInShortestPathOrder) {
+  animateShortestPath = (nodesInShortestPathOrder) => {
     for (let i = 0; i < nodesInShortestPathOrder.length; i++) {
       setTimeout(() => {
         const node = nodesInShortestPathOrder[i];
@@ -87,12 +92,12 @@ export default class PathfindingVisualizer extends Component {
     }
   }
 
-  visualize(algo) {
-    const { grid, pieceType } = this.state;
+  visualize = () => {
+    const { grid, pieceType, algorithm } = this.state;
     const startNode = grid[START_NODE_ROW][START_NODE_COL];
     const finishNode = grid[FINISH_NODE_ROW][FINISH_NODE_COL];
-    const visitedNodesInOrder = runAlgorithm(algo, grid, startNode, finishNode, pieceType);
-    const nodesInShortestPathOrder = getNodesInOrder(finishNode);
+    const visitedNodesInOrder = runAlgorithm(algorithm, grid, startNode, finishNode, pieceType);
+    const nodesInShortestPathOrder = getNodesInOrder(finishNode, pieceType, true, grid);
     this.animate(visitedNodesInOrder, nodesInShortestPathOrder, startNode);
   }
 
@@ -101,49 +106,45 @@ export default class PathfindingVisualizer extends Component {
 
     return (
       <>
-        <div className="bodybody">
-          <Header handleMouseUp={this.handleMouseUp}
-            setPieceType={this.setPieceType} />
-          <div className="grid"
-            onMouseUp={() => this.handleMouseUp()}
-            onContextMenu={(e) => e.preventDefault()}>
-            {grid.map((row, rowIdx) => {
-              return (
-                <div className="row" key={rowIdx}>
-                  {row.map((node, nodeIdx) => {
-                    const { col, row, isFinish, isStart, isColor, isWall } = node;
-                    return (
-                      <Node
-                        key={nodeIdx}
-                        col={col}
-                        row={row}
-                        isFinish={isFinish}
-                        isStart={isStart}
-                        isWall={isWall}
-                        isColor={isColor}
-                        onMouseDown={(e) => this.handleMouseDown(e, row, col)}
-                        onMouseEnter={(e) => this.handleMouseEnter(e, row, col)}
-                      ></Node>
-                    );
-                  })}
-                </div>
-              );
-            })}
-          </div>
-          <button onClick={() => this.visualize(algorithm)}>
-            Run
-            </button>
-          <button onClick={() => this.resetBoard()}>
-            Reset
-        </button>
-          <p>
-            Current selected piece: {pieceType}
-          </p>
-          <p>
-            Current selected algorithm: {algorithm}
-          </p>
-          <Footer handleMouseUp={this.handleMouseUp} />
+        <Header handleMouseUp={this.handleMouseUp}
+          setPieceType={this.setPieceType}
+          resetBoard={this.resetBoard}
+          setAlgorithm={this.setAlgorithm}
+          visualize={this.visualize}
+        />
+        <div className="grid"
+          onMouseUp={() => this.handleMouseUp()}
+          onContextMenu={(e) => e.preventDefault()}>
+          {grid.map((row, rowIdx) => {
+            return (
+              <div className="row" key={rowIdx}>
+                {row.map((node, nodeIdx) => {
+                  const { col, row, isFinish, isStart, isColor, isWall } = node;
+                  return (
+                    <Node
+                      key={nodeIdx}
+                      col={col}
+                      row={row}
+                      isFinish={isFinish}
+                      isStart={isStart}
+                      isWall={isWall}
+                      isColor={isColor}
+                      onMouseDown={(e) => this.handleMouseDown(e, row, col)}
+                      onMouseEnter={(e) => this.handleMouseEnter(e, row, col)}
+                    ></Node>
+                  );
+                })}
+              </div>
+            );
+          })}
         </div>
+        <p>
+          Current selected piece: {pieceType}
+        </p>
+        <p>
+          Current selected algorithm: {algorithm}
+        </p>
+        <Footer handleMouseUp={this.handleMouseUp} />
       </>
     );
   }
