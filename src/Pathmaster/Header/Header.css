@@ -33,6 +33,7 @@
   background-color: rgb(249, 215, 120);
   border-bottom: 2px solid black;
   position: relative;
+  z-index: 5;
 }
 
 .logo_holder {
