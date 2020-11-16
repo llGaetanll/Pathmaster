@@ -2,15 +2,15 @@
 // for visualization. Has nodes point to previous node in order to
 // determine what the shortest path was.
 
-import {PriorityQueue} from './priorityqueue.js';
-import {getNeighbors, dist} from './getneighbors.js';
+import { PriorityQueue } from './priorityQueue.js';
+import { getNeighbors, dist } from './getNeighbors.js';
 
 export function dijkstra(grid, start, end, pieceType) {
 	//assume distance of all nodes is already Infinity
 	let visitedNodes = [];
 	start.distance = 0;
 	//create a priority queue to hold nodes by shortest distance
-	let cmp = (a,b) => a.distance < b.distance;
+	let cmp = (a, b) => a.distance < b.distance;
 	let pq = new PriorityQueue(cmp);
 	pq.push(start);
 	while (!pq.empty()) {

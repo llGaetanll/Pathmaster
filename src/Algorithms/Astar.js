@@ -5,8 +5,8 @@
 // has nodes point to previous node to determine what the 
 // shortest path was.
 
-import {PriorityQueue} from './priorityqueue.js';
-import {getNeighbors, dist} from './getneighbors.js';
+import { PriorityQueue } from './priorityQueue.js';
+import { getNeighbors, dist } from './getNeighbors.js';
 
 
 //following pseudocode from https://en.wikipedia.org/wiki/A*_search_algorithm
@@ -15,7 +15,7 @@ import {getNeighbors, dist} from './getneighbors.js';
 //if false, it will perform bfs-based search with heuristic
 export function astar(grid, start, end, pieceType, isWeighted) {
 	let visitedNodes = [];
-	let cmp = (a,b) => (a.distance + a.heuristic) < (b.distance + b.heuristic);
+	let cmp = (a, b) => (a.distance + a.heuristic) < (b.distance + b.heuristic);
 	let openSet = new PriorityQueue(cmp);
 	start.distance = 0;
 	openSet.push(start);
