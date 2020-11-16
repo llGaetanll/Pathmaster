@@ -55,7 +55,7 @@ export default class PathfindingVisualizer extends Component {
   }
 
   async clearPath() {
-    
+
   }
 
   async animate(visitedNodesInOrder, nodesInShortestPathOrder) {
@@ -142,16 +142,16 @@ export default class PathfindingVisualizer extends Component {
           Queen
               </button>
         <button onClick={() => this.setAlgorithm("Djikstra")}>
-          Dijkstra's Algorithm
+          Dijkstra'sm
               </button>
         <button onClick={() => this.setAlgorithm("BFS")}>
-          BFS Algorithm
+          BFS
               </button>
         <button onClick={() => this.setAlgorithm("AstarWeighted")}>
-          Visualize A* Algorithm (weighted)
+          A* (weighted)
               </button>
         <button onClick={() => this.setAlgorithm("AstarUnweighted")}>
-          Visualize A* Algorithm (unweighted)
+          A* (unweighted)
               </button>
         <button onClick={() => this.visualize(algorithm)}>
           Run
