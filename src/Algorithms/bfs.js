@@ -2,7 +2,7 @@
 // has nodes point to previous node in order to determine what the
 // shortest path was
 
-import {getNeighbors} from './getNeighbors.js';
+import {getNeighbors} from './getneighbors.js';
 
 export function bfs(grid, start, end, pieceType) {
 	//assuming all distances have been updated
