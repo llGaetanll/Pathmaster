@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Node from './Node/Node'
 import Header from './Header/Header'
 import Footer from './Footer/Footer'
-import {runAlgorithm, getNodesInOrder} from '../Algorithms/RunAlgorithm.js';
+import { runAlgorithm, getNodesInOrder } from '../Algorithms/RunAlgorithm.js';
 
 import './Pathmaster.css'
 

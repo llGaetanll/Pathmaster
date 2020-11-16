@@ -1,6 +1,13 @@
 import React, { Component } from 'react';
 
 import './Header.css';
+import king from "../pieces/king.png";
+import queen from "../pieces/queen.png";
+import bishop from "../pieces/bishop.png";
+import rook from "../pieces/rook.png";
+import knight from "../pieces/knight.png";
+import pawn from "../pieces/pawn.png";
+
 
 function Header() {
     return (
@@ -8,7 +15,7 @@ function Header() {
             <div className="header">
                 <div className="top_header">
                     <div className="logo_holder">
-                        <img src="https://www.flaticon.com/svg/static/icons/svg/107/107613.svg" width="35" ></img>
+                        {/*<img src="https://www.flaticon.com/svg/static/icons/svg/107/107613.svg" width="35" ></img>*/}
                         <h1>PATH<span>MASTER</span></h1>
                     </div>
                     <ul class="navigation">
@@ -20,13 +27,28 @@ function Header() {
                 <div className="bottom_header">
                     <ul class="piece_select">
                         <a><li>Select a Piece:</li></a>
-                        <a><li>King</li></a>
-                        <a><li>Queen</li></a>
-                        <a><li>Bishop</li></a>
-                        <a><li>Rook</li></a>
-                        <a><li>Knight</li></a>
-                        <a><li>Pawn</li></a>
+                        <span>
+                            <a><li><img src={king} width="35"></img></li></a>
+                            <a><li><img src={queen} width="35"></img></li></a>
+                            <a><li><img src={bishop} width="35"></img></li></a>
+                            <a><li><img src={rook} width="35"></img></li></a>
+                            <a><li><img src={knight} width="35"></img></li></a>
+                            <a><li><img src={pawn} width="35"></img></li></a>
+                        </span>
                     </ul>
+                    <div className="algo_select">
+                        <h1>Select Algorithm:</h1>
+                        <div class="selectdiv">
+                            <label>
+                                <select>
+                                    <option selected> --- </option>
+                                    <option>Dijkstra's Algorithm</option>
+                                    <option>Breadth-First Search</option>
+                                    <option>A* Search</option>
+                                </select>
+                            </label>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
