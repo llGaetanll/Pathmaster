@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import Button from '@material-ui/core/Button';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
 
 import './Header.css';
 import king from "../pieces/king.png";
@@ -18,10 +21,14 @@ export default class Footer extends Component {
                             <a><li onClick = {() => this.props.setPieceType("Pawn")}><img src="https://www.flaticon.com/svg/static/icons/svg/107/107613.svg" width="35" ></img></li></a>
                             <h1>PATH<span>MASTER</span></h1>
                         </div>
+                        <div className="top_button">
+                            <Button onClick={() => this.props.visualize()}>Run</Button>
+                        </div>
+                        <div className="top_button">
+                            <Button onClick={() => this.props.resetBoard()}>Reset</Button>
+                        </div>                        
                         <ul class="navigation">
-                            <a><li>VISUALIZATION</li></a>
-                            <a><li>ABOUT</li></a>
-                            <a><li><img src="https://www.flaticon.com/svg/static/icons/svg/25/25231.svg" width="40" height="40"></img></li></a>
+                            <a href="https://github.com/eugli/Pathmaster" target="_blank"><li><img src="https://www.flaticon.com/svg/static/icons/svg/25/25231.svg" width="40" height="40"></img></li></a>
                         </ul>
                     </div>
                     <div className="bottom_header">
@@ -39,13 +46,12 @@ export default class Footer extends Component {
                             <h1>Select Algorithm:</h1>
                             <div class="selectdiv">
                                 <label>
-                                    <select onChange={(e) => this.props.setAlgorithm(e.target.value)}>
-                                        <option selected> --- </option>
-                                        <option value="Dijkstra">Dijkstra's Algorithm</option>
-                                        <option value="BFS">Breadth-First Search</option>
-                                        <option value="A* (Weighted)">A* Search (Weighted)</option>
-                                        <option value="A* (Unweighted)">A* Search (Unweighted)</option>
-                                    </select>
+                                    <Select onChange={(e) => this.props.setAlgorithm(e.target.value)}>
+                                        <MenuItem value="Dijkstra">Dijkstra's Algorithm</MenuItem>
+                                        <MenuItem value="BFS">Breadth-First Search</MenuItem>
+                                        <MenuItem value="A* (Weighted)">A* Search (Weighted)</MenuItem>
+                                        <MenuItem value="A* (Unweighted)">A* Search (Unweighted)</MenuItem>
+                                    </Select>
                                 </label>
                             </div>
                         </div>

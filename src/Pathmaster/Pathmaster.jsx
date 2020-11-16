@@ -21,13 +21,13 @@ export default class PathfindingVisualizer extends Component {
     this.resetBoard();
   }
 
-  resetBoard() {
+  resetBoard = () => {
     const grid = getInitialGrid();
     this.setState({grid});      
   }
 
   setPieceType = (piece) => {
-    this.setState({ pieceType: piece })
+    this.setState({ pieceType: piece})
   }
 
   setAlgorithm = (algo) => {
@@ -55,10 +55,15 @@ export default class PathfindingVisualizer extends Component {
   }
 
   async clearPath() {
-
+    var clearNodes = document.getElementsByClassName('node-visited');
+    if (clearNodes !== undefined) {
+        for (let i = 0; i < clearNodes.length; i++) {
+            clearNodes[i].className = ''
+        }
+    }
   }
 
-  async animate(visitedNodesInOrder, nodesInShortestPathOrder, startNode) {
+  async animate (visitedNodesInOrder, nodesInShortestPathOrder, startNode) {
     await this.clearPath();
     for (let i = 0; i < visitedNodesInOrder.length; i++) {
       setTimeout(() => {
@@ -77,7 +82,7 @@ export default class PathfindingVisualizer extends Component {
     }
   }
 
-  animateShortestPath(nodesInShortestPathOrder) {
+  animateShortestPath = (nodesInShortestPathOrder) => {
     for (let i = 0; i < nodesInShortestPathOrder.length; i++) {
       setTimeout(() => {
         const node = nodesInShortestPathOrder[i];
@@ -87,12 +92,12 @@ export default class PathfindingVisualizer extends Component {
     }
   }
 
-  visualize(algo, showAll) {
-    const {grid, pieceType } = this.state;
+  visualize = () => {
+    const {grid, pieceType, algorithm} = this.state;
     const startNode = grid[START_NODE_ROW][START_NODE_COL];
     const finishNode = grid[FINISH_NODE_ROW][FINISH_NODE_COL];
-    const visitedNodesInOrder = runAlgorithm(algo, grid, startNode, finishNode, pieceType);
-    const nodesInShortestPathOrder = getNodesInOrder(finishNode, pieceType, showAll, grid);
+    const visitedNodesInOrder = runAlgorithm(algorithm, grid, startNode, finishNode, pieceType);
+    const nodesInShortestPathOrder = getNodesInOrder(finishNode);
     this.animate(visitedNodesInOrder, nodesInShortestPathOrder, startNode);
   }
 
@@ -103,7 +108,9 @@ export default class PathfindingVisualizer extends Component {
       <>
         <Header handleMouseUp = {this.handleMouseUp}
                 setPieceType = {this.setPieceType}
+                resetBoard = {this.resetBoard}
                 setAlgorithm = {this.setAlgorithm}
+                visualize = {this.visualize}
                 />
         <div className="grid"
           onMouseUp={() => this.handleMouseUp()}
@@ -131,12 +138,6 @@ export default class PathfindingVisualizer extends Component {
             );
           })}
         </div>
-        <button onClick={() => this.visualize(algorithm, true)}>
-          Run
-            </button>
-        <button onClick={() => this.resetBoard()}>
-          Reset
-        </button>
         <p>
           Current selected piece: {pieceType}
         </p>
