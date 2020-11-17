@@ -13,7 +13,7 @@ export default class PathfindingVisualizer extends Component {
       grid: [],
       mouseIsPressed: false,
       pieceType: "Knight",
-      algorithm: "A* (Unweighted)",
+      algorithm: "Dijkstra",
     };
   }
 
@@ -124,6 +124,7 @@ export default class PathfindingVisualizer extends Component {
       <>
         <div className="body">
           <Header
+            algorithm={algorithm}
             handleMouseUp={this.handleMouseUp}
             setPieceType={this.setPieceType}
             resetBoard={this.resetBoard}

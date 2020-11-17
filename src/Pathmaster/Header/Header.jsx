@@ -13,7 +13,16 @@ import knight from "../pieces/knight.png";
 import pawn from "../pieces/pawn.png";
 
 export default class Footer extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      active: false,
+    };
+  }
+
   render() {
+    var { active } = this.state;
+
     return (
       <div>
         <div className="header" onClick={() => this.props.handleMouseUp()}>
@@ -56,22 +65,27 @@ export default class Footer extends Component {
               </a>
               <span>
                 <PieceIcon
+                  active={active}
                   piece={"King"}
                   setPieceType={this.props.setPieceType}
                 />
                 <PieceIcon
+                  active={active}
                   piece={"Queen"}
                   setPieceType={this.props.setPieceType}
                 />
                 <PieceIcon
+                  active={active}
                   piece={"Bishop"}
                   setPieceType={this.props.setPieceType}
                 />
                 <PieceIcon
+                  active={active}
                   piece={"Rook"}
                   setPieceType={this.props.setPieceType}
                 />
                 <PieceIcon
+                  active={active}
                   piece={"Knight"}
                   setPieceType={this.props.setPieceType}
                 />
@@ -82,6 +96,7 @@ export default class Footer extends Component {
               <div class="selectdiv">
                 <label>
                   <Select
+                    defaultValue={this.props.algorithm}
                     onChange={(e) => this.props.setAlgorithm(e.target.value)}
                   >
                     <MenuItem value="Dijkstra">Dijkstra's Algorithm</MenuItem>

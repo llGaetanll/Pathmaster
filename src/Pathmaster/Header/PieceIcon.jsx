@@ -10,7 +10,7 @@ export default class PieceIcon extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      active: false,
+      active: this.props.active,
       piece: this.props.piece,
     };
   }
@@ -32,14 +32,12 @@ export default class PieceIcon extends Component {
     }[piece];
 
     return (
-      <a>
-        <li
-          className={this.state.active ? "piece_selected" : "piece_unselected"}
-          onClick={() => this.onClick(piece)}
-        >
-          <img src={image} width="35"></img>
-        </li>
-      </a>
+      <button
+        className={this.state.active ? "piece_selected" : "piece_unselected"}
+        onClick={() => this.onClick(piece)}
+      >
+        <img src={image} width="35"></img>
+      </button>
     );
   }
 }
