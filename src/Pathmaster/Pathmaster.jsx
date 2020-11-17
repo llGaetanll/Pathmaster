@@ -166,8 +166,6 @@ export default class PathfindingVisualizer extends Component {
               );
             })}
           </div>
-          <p className="current">Current Piece: {pieceType}</p>
-          <p className="current">Current Algorithm: {algorithm}</p>
           <Footer handleMouseUp={this.handleMouseUp} />
         </div>
       </>
@@ -175,8 +173,8 @@ export default class PathfindingVisualizer extends Component {
   }
 }
 
-const NUM_ROWS = 30;
-const NUM_COLS = 72;
+const NUM_ROWS = 37;
+const NUM_COLS = 85;
 const START_NODE_ROW = Math.floor(NUM_ROWS / 2);
 const START_NODE_COL = Math.floor(NUM_COLS / 4);
 const FINISH_NODE_ROW = Math.floor(NUM_ROWS / 2);

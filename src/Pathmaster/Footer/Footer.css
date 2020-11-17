@@ -1,4 +1,6 @@
 .footer {
+  position: fixed;
+  bottom: 0;
   background-color: rgb(245, 195, 66);
   height: 5vh;
   width: 100%;
@@ -6,6 +8,7 @@
   font-size: 21px;
   font-weight: 400;
   font-family: "Fira Sans Extra Condensed", sans-serif;
+  border-top: 2px solid black;  
   vertical-align: bottom;
   padding-top: 4px;
 }

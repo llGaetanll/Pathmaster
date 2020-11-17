@@ -24,12 +24,12 @@ export default class Footer extends Component {
     var { active } = this.state;
 
     return (
-      <div>
+      <div className="header_container">
         <div className="header" onClick={() => this.props.handleMouseUp()}>
           <div className="top_header">
             <div className="logo_holder">
               <a>
-                <li onClick={() => this.onClick("Pawn")}>
+                <li onClick={() => this.props.setPieceType("Pawn")}>
                   <img
                     src="https://www.flaticon.com/svg/static/icons/svg/107/107613.svg"
                     width="35"
@@ -89,6 +89,11 @@ export default class Footer extends Component {
                   piece={"Knight"}
                   setPieceType={this.props.setPieceType}
                 />
+                <PieceIcon
+                  active={active}
+                  piece={"Pawn"}
+                  setPieceType={this.props.setPieceType}
+                ></PieceIcon>
               </span>
             </ul>
             <div className="algo_select">
