@@ -1,4 +1,4 @@
-import Pathmaster from './Pathmaster/Pathmaster'
+import Pathmaster from "./Pathmaster/Pathmaster";
 
 function App() {
   return (

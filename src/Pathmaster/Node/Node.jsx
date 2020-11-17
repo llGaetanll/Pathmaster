@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-import './Node.css';
+import "./Node.css";
 
 export default class Node extends Component {
   render() {
@@ -16,18 +16,18 @@ export default class Node extends Component {
       isColor,
       isWall,
       onMouseDown,
-      onMouseEnter
+      onMouseEnter,
     } = this.props;
 
     const nodeType = isFinish
-      ? 'node-finish'
+      ? "node-finish"
       : isStart
-        ? 'node-start'
-        : isWall
-          ? 'node-wall'
-          : isColor
-            ? 'node-color'
-            : 'node-default';
+      ? "node-start"
+      : isWall
+      ? "node-wall"
+      : isColor
+      ? "node-color"
+      : "node-default";
 
     return (
       <div
