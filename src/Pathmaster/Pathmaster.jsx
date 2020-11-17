@@ -35,6 +35,11 @@ export default class PathfindingVisualizer extends Component {
   };
 
   handleMouseDown = (e, row, col) => {
+    if (window.getSelection) {
+      window.getSelection().removeAllRanges();
+    } else if (document.selection) {
+      document.selection.empty();
+    }
     if (row === undefined && col === undefined) {
       this.setState({ mouseIsPressed: true });
     } else {
