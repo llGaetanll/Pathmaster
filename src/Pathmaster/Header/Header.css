@@ -93,6 +93,10 @@
   font-family: "Fira Sans Extra Condensed", sans-serif;
 }
 
+.piece_selected {
+  border: 2px solid black;
+}
+
 .piece_select span {
   cursor: pointer;
 }
@@ -113,7 +117,7 @@
 .piece_select a li {
   display: table-cell;
   vertical-align: middle;
-  padding-top: 9px;
+  padding-top: 1vh;
   font-size: 21px;
   font-weight: 300;
   font-family: "Fira Sans Extra Condensed", sans-serif;

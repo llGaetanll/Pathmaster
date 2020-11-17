@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PieceIcon from "./PieceIcon";
 import Button from "@material-ui/core/Button";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -12,18 +13,6 @@ import knight from "../pieces/knight.png";
 import pawn from "../pieces/pawn.png";
 
 export default class Footer extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      active: false,
-    };
-  }
-
-  onClick(piece) {
-    this.props.setPieceType(piece);
-    this.setState({ active: !this.state.active });
-  }
-
   render() {
     return (
       <div>
@@ -66,56 +55,26 @@ export default class Footer extends Component {
                 <li>Select a Piece:</li>
               </a>
               <span>
-                <a>
-                  <li
-                    className={
-                      this.state.active ? "piece_selected" : "piece_unselected"
-                    }
-                    onClick={() => this.onClick("King")}
-                  >
-                    <img src={king} width="35"></img>
-                  </li>
-                </a>
-                <a>
-                  <li
-                    className={
-                      this.state.active ? "piece_selected" : "piece_unselected"
-                    }
-                    onClick={() => this.onClick("Queen")}
-                  >
-                    <img src={queen} width="35"></img>
-                  </li>
-                </a>
-                <a>
-                  <li
-                    className={
-                      this.state.active ? "piece_selected" : "piece_unselected"
-                    }
-                    onClick={() => this.onClick("Bishop")}
-                  >
-                    <img src={bishop} width="35"></img>
-                  </li>
-                </a>
-                <a>
-                  <li
-                    className={
-                      this.state.active ? "piece_selected" : "piece_unselected"
-                    }
-                    onClick={() => this.onClick("Rook")}
-                  >
-                    <img src={rook} width="35"></img>
-                  </li>
-                </a>
-                <a>
-                  <li
-                    className={
-                      this.state.active ? "piece_selected" : "piece_unselected"
-                    }
-                    onClick={() => this.onClick("Knight")}
-                  >
-                    <img src={knight} width="35"></img>
-                  </li>
-                </a>
+                <PieceIcon
+                  piece={"King"}
+                  setPieceType={this.props.setPieceType}
+                />
+                <PieceIcon
+                  piece={"Queen"}
+                  setPieceType={this.props.setPieceType}
+                />
+                <PieceIcon
+                  piece={"Bishop"}
+                  setPieceType={this.props.setPieceType}
+                />
+                <PieceIcon
+                  piece={"Rook"}
+                  setPieceType={this.props.setPieceType}
+                />
+                <PieceIcon
+                  piece={"Knight"}
+                  setPieceType={this.props.setPieceType}
+                />
               </span>
             </ul>
             <div className="algo_select">
