@@ -3,6 +3,9 @@
 .grid {
   margin: 0 auto;
   border-bottom: 2px solid black;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  user-select: none;
 }
 
 .row {
@@ -22,7 +25,4 @@
 
 .App {
   text-align: center;
-  -moz-user-select: none;
-  -khtml-user-select: none;
-  user-select: none;
 }
